@@ -4,7 +4,7 @@ namespace PTCGProject.Models
 {
     public class CardModel
     {
-        public int CardId { get; set; }
+        public string CardId { get; set; }
 
         [Display(Name = "卡片名稱")]
         public string CardName { get; set; }

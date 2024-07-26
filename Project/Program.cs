@@ -1,3 +1,7 @@
+using Microsoft.Data.SqlClient;
+using System.Data;
+using System;
+
 namespace Project
 {
     public class Program
@@ -8,6 +12,16 @@ namespace Project
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            //DI 依賴注入 (Dependency Injection) 
+
+            builder.Services.AddScoped<IDbConnection, SqlConnection>(serviceProvider =>
+            {
+                SqlConnection conn = new SqlConnection();
+                //指派連線字串
+                conn.ConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+                return conn;
+            });
 
             var app = builder.Build();
 
