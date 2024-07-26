@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "PTCG卡牌查詢系統";
+}
+
+@model List<PTCGProject.Models.CardModel>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>卡片資料</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>卡片資料</h2>
+    <table>
+        <thead>
+            @if (Model != null)
+            {
+                <tr>
+                    <th>卡片編號</th>
+                    <th>卡片名稱</th>
+                    <th>卡片屬性</th>
+                    <th>卡片類別</th>
+                    <th>卡片稀有度</th>
+                    <th>卡片版本代號</th>
+                </tr>
+            }
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (var card in Model)
+                {
+                    <tr>
+                        <td>@card.CardId</td>
+                        <td>@card.CardName</td>
+                        <td>@card.CardAttribute</td>
+                        <td>@card.CardType</td>
+                        <td>@card.CardRarity</td>
+                        <td>@card.CardVersion</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <p>查無卡片資料</p>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
