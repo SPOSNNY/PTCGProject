@@ -59,7 +59,54 @@ namespace PTCGProject.DataProcess
                 }
             }
 
+            sql.Append("ORDER BY CardVersion , CardId");
+
             return _dbConnection.Query<CardModel>(sql.ToString(), cardModel).ToList();
+        }
+
+        public void CreateCardsDetail(CardModel cardModel)
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.Append(@"INSERT INTO [dbo].[PKM_DETAIL] 
+                                     (CardId
+                                     ,CardName
+                                     ,CardAttribute
+                                     ,CardType
+                          	         ,CardRarity
+                                     ,CardVersion
+                                     ) VALUES
+                                     (@CardId
+                                     ,@CardName
+                                     ,@CardAttribute
+                                     ,@CardType
+                                     ,@CardRarity
+                                     ,@CardVersion )");
+
+            _dbConnection.Execute(sql.ToString(), cardModel);
+        }
+
+        public void UpdateCardsDetail(CardModel cardModel)
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.Append(@"UPDATE [dbo].[PKM_DETAIL] 
+                            SET CardName = @CardName
+                               ,CardAttribute = @CardAttribute
+                               ,CardType = @CardType
+                          	   ,CardRarity = @CardRarity 
+                          WHERE CardId = @CardId
+                            AND CardVersion = @CardVersion ");
+
+            _dbConnection.Execute(sql.ToString(), cardModel);
+        }
+
+        public void DeleteCardsDetail(CardModel cardModel)
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.Append(@"DELETE FROM [dbo].[PKM_DETAIL] 
+                          WHERE CardId = @CardId
+                            AND CardVersion = @CardVersion ");
+
+            _dbConnection.Execute(sql.ToString(), cardModel);
         }
     }
 }

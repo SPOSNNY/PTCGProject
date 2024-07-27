@@ -23,15 +23,16 @@
             background-color: #f2f2f2;
         }
 
-        .edit-name{
-            color:blue;
+        .edit-name {
+            color: blue;
         }
     </style>
 
     @section scripts {
         <script>
-            $(document).ready(function() {
-                $('.edit-name').click(function() {
+            $(document).ready(function () {
+
+                $('.edit-name').click(function () {
                     var cardId = $(this).data('card-id');
                     var cardVersion = $(this).data('card-version');
 
@@ -52,7 +53,31 @@
                         }
                     });
                 });
+
+                $('.btn-delete').click(function () {
+                    var cardId = $(this).data('card-id');
+                    var cardVersion = $(this).data('card-version');
+
+                    $.ajax({
+                        url: '@Url.Action("DeleteCard", "CardManage")',
+                        type: 'Post',
+                        data: {
+                            id: cardId,
+                            version: cardVersion
+                        },
+                        success: function (response) {
+                            if (response.redirectUrl) {
+                                window.location.href = response.redirectUrl;
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('AJAX Error:', status, error);
+                        }
+                    });
+                });
+
             });
+
         </script>
     }
 </head>
@@ -61,33 +86,31 @@
 
 <a asp-action="AddCard">新增卡牌</a>
 
-<form asp-action="DeleteCard">
-    <table>
-        <thead>
+<table>
+    <thead>
+        <tr>
+            <th>編號</th>
+            <th>名稱</th>
+            <th>屬性</th>
+            <th>類型</th>
+            <th>稀有度</th>
+            <th>版本</th>
+            <th>功能</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var card in Model)
+        {
             <tr>
-                <th>選擇</th>
-                <th>編號</th>
-                <th>名稱</th>
-                <th>屬性</th>
-                <th>類型</th>
-                <th>稀有度</th>
-                <th>版本</th>
+              
+                <td>@card.CardId</td>
+                <td class="edit-name" data-card-id="@card.CardId" data-card-version="@card.CardVersion">@card.CardName</td>
+                <td>@card.CardAttribute</td>
+                <td>@card.CardType</td>
+                <td>@card.CardRarity</td>
+                <td>@card.CardVersion</td>
+                <td><button class="btn-delete" data-card-id="@card.CardId" data-card-version="@card.CardVersion">刪除</button></td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var card in Model)
-            {
-                <tr>
-                    <td><input type="checkbox" name="selectedCards" value="@card.CardId"/></td>
-                    <td>@card.CardId</td>
-                    <td class="edit-name" data-card-id="@card.CardId" data-card-version="@card.CardVersion">@card.CardName</td>
-                    <td>@card.CardAttribute</td>
-                    <td>@card.CardType</td>
-                    <td>@card.CardRarity</td>
-                    <td>@card.CardVersion</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <button type="submit">刪除選中的卡牌</button>
-</form>
+        }
+    </tbody>
+</table>
