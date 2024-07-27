@@ -27,8 +27,43 @@
     </style>
 </head>
 <body>
-    <h2>卡片資料</h2>
-    <table>
+    <h2>卡片資料查詢</h2>
+
+
+    <form action="~/Home/Index" method="post" runat="server">
+        <select name="cardAttribute" id="cardAttribute">
+            <option value="">請選擇卡片屬性</option>
+            @foreach (var attr in ViewBag.CardAttributes)
+            {
+                <option value="@attr">@attr</option>
+            }
+        </select>
+        <select name="cardType">
+            <option value="">請選擇卡片類別</option>
+            @foreach (var type in ViewBag.CardTypes)
+            {
+                <option value="@type">@type</option>
+            }
+        </select>
+        <select name="cardRarity">
+            <option value="">請選擇卡片稀有度</option>
+            @foreach (var rarity in ViewBag.CardRarities)
+            {
+                <option value="@rarity">@rarity</option>
+            }
+        </select>
+        <select name="cardVersion">
+            <option value="">請選擇卡片版本代號</option>
+            @foreach (var version in ViewBag.CardVersions)
+            {
+                <option value="@version">@version</option>
+            }
+        </select>
+        <input type="text" name="cardName" placeholder="輸入卡片名稱查詢...">
+        <button type="submit">查詢</button>
+    </form>
+
+    <table id="cardTable">
         <thead>
             @if (Model != null)
             {
