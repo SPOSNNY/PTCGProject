@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "修改卡牌";
+}
+@model PTCGProject.Models.CardModel
+
+<!DOCTYPE html>
+
+<h1>修改卡牌</h1>
+
+<form asp-action="Update">
+    <input type="hidden" name="cardId" value="@Model.CardId" />
+    <input type="hidden" name="CardVersion" value="@Model.CardVersion" />
+    <div>
+        <label>名稱：</label>
+        <input type="text" name="cardName" value="@Model.CardName" required />
+    </div>
+    <div>
+        <label>屬性：</label>
+        <input type="text" name="cardAttribute" value="@Model.CardAttribute" required />
+    </div>
+    <div>
+        <label>類型：</label>
+        <input type="text" name="cardType" value="@Model.CardType" required />
+    </div>
+    <div>
+        <label>稀有度：</label>
+        <input type="text" name="cardRarity" value="@Model.CardRarity" required />
+    </div>
+    <button type="submit">更新卡牌</button>
+</form>
