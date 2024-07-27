@@ -9,12 +9,18 @@ namespace PTCGProject.Service
         private CardDataProcess _CardDataProcess;
         public CardService(IDbConnection dbConnection) 
         {
+            //實作注入CardDataProcess
             _CardDataProcess = new CardDataProcess(dbConnection);
         }
 
-        public List<CardModel> GetCardsDetail(string attribute = "", string type = "", string rarity = "", string version = "", string name = "") 
+        /// <summary>
+        /// 依查詢條件取得卡牌明細資訊
+        /// </summary>
+        /// <param name="cardModel">卡牌查詢條件</param>
+        /// <returns>卡牌明細資訊列表</returns>
+        public List<CardModel> GetCardsDetail(CardModel cardModel = null) 
         {
-           return _CardDataProcess.GetCardsDetail(attribute, type, rarity, version, name);
+           return _CardDataProcess.GetCardsDetail(cardModel);
         }
     }
 }

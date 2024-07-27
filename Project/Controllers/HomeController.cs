@@ -24,15 +24,21 @@ namespace Project.Controllers
             List<CardModel> InitCards = Init();
             return View(InitCards);
         }
-        
+
+        /// <summary>
+        /// 點擊查詢依卡牌條件查詢卡牌列表
+        /// </summary>
+        /// <param name="cardModel">卡牌條件</param>
+        /// <returns>卡牌列表</returns>
         [HttpPost]
         public IActionResult Index(CardModel cardModel)
         {
-            List<CardModel> cards = _CardService.GetCardsDetail(cardModel.CardAttribute, cardModel.CardType, cardModel.CardRarity, cardModel.CardVersion, cardModel.CardName);
+            List<CardModel> cards = _CardService.GetCardsDetail(cardModel);
             Init();
             return View(cards);
         }
 
+        //初始化查詢選單下拉式列表
         private List<CardModel> Init()
         {
             List<CardModel> InitCards = _CardService.GetCardsDetail();
