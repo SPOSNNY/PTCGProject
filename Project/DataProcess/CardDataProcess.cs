@@ -22,7 +22,7 @@ namespace PTCGProject.DataProcess
         public List<CardModel> GetCardsDetail(CardModel cardModel)
         {
             StringBuilder sql = new StringBuilder();
-            sql.Append(@"SELECT RIGHT('000' + CAST(CardId AS VARCHAR(3)), 3) AS CardId
+            sql.Append(@"SELECT CardId
                           　 　,CardName
                                ,CardAttribute
                           	   ,CardType
