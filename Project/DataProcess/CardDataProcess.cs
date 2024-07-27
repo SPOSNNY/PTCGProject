@@ -64,6 +64,10 @@ namespace PTCGProject.DataProcess
             return _dbConnection.Query<CardModel>(sql.ToString(), cardModel).ToList();
         }
 
+        /// <summary>
+        /// 新增卡牌明細資訊
+        /// </summary>
+        /// <param name="cardModel">卡牌明細</param>
         public void CreateCardsDetail(CardModel cardModel)
         {
             StringBuilder sql = new StringBuilder();
@@ -85,6 +89,10 @@ namespace PTCGProject.DataProcess
             _dbConnection.Execute(sql.ToString(), cardModel);
         }
 
+        /// <summary>
+        /// 依卡牌編號與版本更新對應的卡牌明細資訊
+        /// </summary>
+        /// <param name="cardModel">卡牌明細</param>
         public void UpdateCardsDetail(CardModel cardModel)
         {
             StringBuilder sql = new StringBuilder();
@@ -99,6 +107,10 @@ namespace PTCGProject.DataProcess
             _dbConnection.Execute(sql.ToString(), cardModel);
         }
 
+        /// <summary>
+        /// 依卡牌編號與版本刪除對應的卡牌明細資訊
+        /// </summary>
+        /// <param name="cardModel">卡牌明細</param>
         public void DeleteCardsDetail(CardModel cardModel)
         {
             StringBuilder sql = new StringBuilder();
